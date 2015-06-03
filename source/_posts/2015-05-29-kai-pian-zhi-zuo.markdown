@@ -13,19 +13,17 @@ Today I will start my new blog journey. I decided to share my blogs to page. Thi
 4. rake deploy
 
 
-保存你的代码
+
+##保存你的代码
 
 如前所述，rake deploy只是把生成的静态网页推送到了Github的Repo上去，但是你的博客的源码，就是这个octopress文件夹还需要地方保存，所以你可以新建一个Repo来保存源码：
 
-1
-2
-3
-4
+```
 git add .
 git ci -s -m "Setup and config blogs for Github Pages"
 git remote add myrepo *some public or private repo*
 git push myrepo source
-
+```
 
 You can learn more detail from [Here](http://toughcoder.net/blog/2014/10/16/blogging-like-a-hacker-with-github-pages/)
-http://octopress.org/docs/blogging/
+and [Here](http://octopress.org/docs/blogging/)
