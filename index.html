@@ -9,7 +9,7 @@
   <meta name="author" content="HaiBin Wang">
 
   
-  <meta name="description" content="Today I will start my new blog journey. I decided to share my blogs to page. This is my first blog, I will just list the command that being useful &hellip;">
+  <meta name="description" content="Background MVC作为提倡的代码结构已经被广泛使用。但是随着使用越来越多，它的弊端也越来越明显。比如：Model管理数据，View管理UI相关，Controller协调Model和View。Controller因此包含了太多的property和Protocol的执行代码， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,6 +63,44 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">MVVM vs MVC vs MVP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-06-01T17:58:28+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>5:58 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Background</h2>
+
+<p>MVC作为提倡的代码结构已经被广泛使用。但是随着使用越来越多，它的弊端也越来越明显。比如：Model管理数据，View管理UI相关，Controller协调Model和View。Controller因此包含了太多的property和Protocol的执行代码，这导致Controller职责太大，代码量也太大。 MVC已经不是Model-View-Controller， 而成为了Massive-View-Controller。</p>
+
+<p>其次，我们应该把网络层相关code放到哪里？Model？网络请求通常都是异步的，如果网络请求的生命周期不完全属于这个Model呢？很明显我们也不能把网络代码放在View中。那么只能放到Controller中，这又进一步使MVC成了Massive-View-Controller。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/05/29/kai-pian-zhi-zuo/">开篇之作</a></h1>
     
     
@@ -89,7 +127,7 @@
 </ol>
 
 
-<p>保存你的代码</p>
+<h2>保存你的代码</h2>
 
 <p>如前所述，rake deploy只是把生成的静态网页推送到了Github的Repo上去，但是你的博客的源码，就是这个octopress文件夹还需要地方保存，所以你可以新建一个Repo来保存源码：</p>
 
@@ -125,6 +163,10 @@ and <a href="http://octopress.org/docs/blogging/">Here</a></p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">MVVM vs MVC vs MVP</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/29/kai-pian-zhi-zuo/">开篇之作</a>
       </li>
     
@@ -135,6 +177,12 @@ and <a href="http://octopress.org/docs/blogging/">Here</a></p>
     <h3 class="panel-title">Categories</h3>
   </div>
   <div class="list-group">
+    
+    
+    <a class="list-group-item " href="/blog/categories/framework/index.html">
+        <span class="badge">1</span>
+        framework
+      </a>
     
   </div>
 </section>
