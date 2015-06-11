@@ -3,7 +3,7 @@ layout: post
 title: "MVVM VS MVC VS MVP"
 date: 2015-06-01 17:58:28 +0800
 comments: true
-categories: Framework
+categories: 
 ---
 
 ##Background
