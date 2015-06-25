@@ -187,6 +187,10 @@ xcuserdata/
 
 
 ```
+##Other File
+project.xcworkspace is a directory of files describing the workspace or projects. Although some of the answers here indicate it is unnecessary and should be ignored for source control, I don't agree, but it's going to be highly dependent upon how you use your environment. Generally, the contents of the project.xcworkspace directory contains the contents.xcworkspacedata file, which lists the projects that are included as top-level entities in your project, an xcuserdata directory, which contains each user's settings (should be ignored for source code controL), and xcshareddata, which is data shared by users who share a project, and should be under source control.
+
+In environments where you don't share workspaces, or where you use simple workspaces, you can ignore these as well, however in environments where you put related projects in the same workspace and share that configuration, you may well want to keep these.
 
 
 ##Reference  
