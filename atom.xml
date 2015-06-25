@@ -4,7 +4,7 @@
   <title><![CDATA[Henry Wang's Blog]]></title>
   <link href="http://hbwang85.github.io/atom.xml" rel="self"/>
   <link href="http://hbwang85.github.io/"/>
-  <updated>2015-06-11T13:22:46+08:00</updated>
+  <updated>2015-06-25T12:05:59+08:00</updated>
   <id>http://hbwang85.github.io/</id>
   <author>
     <name><![CDATA[HaiBin Wang]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Storyboard for Tableview]]></title>
+    <link href="http://hbwang85.github.io/blog/2015/06/16/storyboard-for-tableview/"/>
+    <updated>2015-06-16T10:49:44+08:00</updated>
+    <id>http://hbwang85.github.io/blog/2015/06/16/storyboard-for-tableview</id>
+    <content type="html"><![CDATA[<h2>Background</h2>
+
+<p>Our team switch to use storyboard for configuring UI components for currrent project.  In the past, I used code to configuring UI components, and there was no issue for tablecell height autofit by using layoutSubviews or other methods. However, as a newbie for storyboard, I encountered this issue. I cann&rsquo;t layout tablecell with correct height. After days of learning and research, I have found the method to resolve it so I&rsquo;d like to write an article to summary it.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h2>Storyboard</h2>
+
+<ol>
+<li><p>I use UILabel to show multiple lines content. The bottom spacing between label and parent view should not be constant but should be required, it shouble be greater than XX, which is shown as follow:<br/>
+<img class="center" src="http://hbwang85.github.io/images/tableview/bottom_space.png"></p></li>
+<li><p>The content for the label will be in the vertical center by default, which will show white space on the top and bottom of the label,  if you want to compress the label size you can set the &ldquo;content hugging priority&rdquo;:<br/>
+<img class="center" src="http://hbwang85.github.io/images/tableview/content_hugging_priority.png"></p></li>
+<li><p>If you want to customize one imageview height for e.g. 100 in general, and should be considered the first one to compress the size, you should add two constraints, one is height equal 100 as required, another is height less than 100 as required, and reduce the &ldquo;Content Comperssion Resistance Priority&rdquo; from 750 to a small number, e.g. 250:<br/>
+<img src="http://hbwang85.github.io/images/tableview/imageview_height.png">
+<img src="http://hbwang85.github.io/images/tableview/compression_resistance_priority.png"></p></li>
+</ol>
+
+
+<h2>Code</h2>
+
+<ol>
+<li>Should create a global tablecell variable to calculate tablecell height;</li>
+<li>In the API"htightForRowAtIndexPath":
+
+<ul>
+<li>Stuff the content to tablecell firstly;</li>
+<li>update tablecell bounds to CGRectMake(0, 0, CGRectGetWidth(tableView.frame), tableView.rowHeight) in case of rotation or other scenario;</li>
+<li>set the label&rsquo;s preferredMaxLayoutWidth to bounds.size.width-XX, XX is equal to the left padding + right padding + 32, this step could be move to the update bounds function;</li>
+</ul>
+</li>
+<li>calculate the total height by systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height+1 (1 is the padding between content view and table cell);</li>
+<li>Can cache tablecell height by using NSDictionary and using indexPath as the key;</li>
+<li>If you use UITextView instead of UILabel, the total height shouble the height calculated by systemLayoutSizeFittingSize + the UITextView height. you can read the reference for more detail.</li>
+</ol>
+
+
+<h2>Reference</h2>
+
+<ol>
+<li><a href="http://www.cocoachina.com/industry/20140604/8668.html">http://www.cocoachina.com/industry/20140604/8668.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Edit Gitignore File for Xcode Project]]></title>
@@ -347,6 +401,12 @@
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<h2>Other File</h2>
+
+<p>project.xcworkspace is a directory of files describing the workspace or projects. Although some of the answers here indicate it is unnecessary and should be ignored for source control, I don&rsquo;t agree, but it&rsquo;s going to be highly dependent upon how you use your environment. Generally, the contents of the project.xcworkspace directory contains the contents.xcworkspacedata file, which lists the projects that are included as top-level entities in your project, an xcuserdata directory, which contains each user&rsquo;s settings (should be ignored for source code controL), and xcshareddata, which is data shared by users who share a project, and should be under source control.</p>
+
+<p>In environments where you don&rsquo;t share workspaces, or where you use simple workspaces, you can ignore these as well, however in environments where you put related projects in the same workspace and share that configuration, you may well want to keep these.</p>
 
 <h2>Reference</h2>
 

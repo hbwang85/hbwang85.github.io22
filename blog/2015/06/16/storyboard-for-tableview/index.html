@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>开篇之作 - Henry Wang's Blog</title>
+  <title>Storyboard for Tableview - Henry Wang's Blog</title>
   <meta name="author" content="HaiBin Wang">
 
   
-  <meta name="description" content="Today I will start my new blog journey. I decided to share my blogs to page. This is my first blog, I will just list the command that being useful &hellip;">
+  <meta name="description" content="Background Our team switch to use storyboard for configuring UI components for currrent project. In the past, I used code to configuring UI &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hbwang85.github.io/blog/2015/05/29/kai-pian-zhi-zuo/">
+  <link rel="canonical" href="http://hbwang85.github.io/blog/2015/06/16/storyboard-for-tableview/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Henry Wang's Blog" type="application/atom+xml">
@@ -60,7 +60,7 @@
   
   <header>
     
-      <h1 class="entry-title">开篇之作</h1>
+      <h1 class="entry-title">Storyboard for Tableview</h1>
     
     
       <p class="meta">
@@ -69,39 +69,59 @@
 
 
 
-<time class='entry-date' datetime='2015-05-29T17:52:43+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:52 pm</span></time>
+<time class='entry-date' datetime='2015-06-16T10:49:44+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:49 am</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Today I will start my new blog journey. I decided to share my blogs to page. This is my first blog, I will just list the command that being useful for deploy blog.</p>
+<div class="entry-content"><h2>Background</h2>
+
+<p>Our team switch to use storyboard for configuring UI components for currrent project.  In the past, I used code to configuring UI components, and there was no issue for tablecell height autofit by using layoutSubviews or other methods. However, as a newbie for storyboard, I encountered this issue. I cann&rsquo;t layout tablecell with correct height. After days of learning and research, I have found the method to resolve it so I&rsquo;d like to write an article to summary it.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h2>Storyboard</h2>
 
 <ol>
-<li>rake new_post[“Blog Title”]</li>
-<li>rake generate</li>
-<li>rake preview</li>
-<li>rake deploy</li>
+<li><p>I use UILabel to show multiple lines content. The bottom spacing between label and parent view should not be constant but should be required, it shouble be greater than XX, which is shown as follow:<br/>
+<img class="center" src="/images/tableview/bottom_space.png"></p></li>
+<li><p>The content for the label will be in the vertical center by default, which will show white space on the top and bottom of the label,  if you want to compress the label size you can set the &ldquo;content hugging priority&rdquo;:<br/>
+<img class="center" src="/images/tableview/content_hugging_priority.png"></p></li>
+<li><p>If you want to customize one imageview height for e.g. 100 in general, and should be considered the first one to compress the size, you should add two constraints, one is height equal 100 as required, another is height less than 100 as required, and reduce the &ldquo;Content Comperssion Resistance Priority&rdquo; from 750 to a small number, e.g. 250:<br/>
+<img src="/images/tableview/imageview_height.png">
+<img src="/images/tableview/compression_resistance_priority.png"></p></li>
 </ol>
 
 
-<h2>保存你的代码</h2>
+<h2>Code</h2>
 
-<p>如前所述，rake deploy只是把生成的静态网页推送到了Github的Repo上去，但是你的博客的源码，就是这个octopress文件夹还需要地方保存，所以你可以新建一个Repo来保存源码：</p>
+<ol>
+<li>Should create a global tablecell variable to calculate tablecell height;</li>
+<li>In the API"htightForRowAtIndexPath":
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git ci -s -m "Setup and config blogs for Github Pages"
-</span><span class='line'>git remote add myrepo *some public or private repo*
-</span><span class='line'>git push myrepo source</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>Stuff the content to tablecell firstly;</li>
+<li>update tablecell bounds to CGRectMake(0, 0, CGRectGetWidth(tableView.frame), tableView.rowHeight) in case of rotation or other scenario;</li>
+<li>set the label&rsquo;s preferredMaxLayoutWidth to bounds.size.width-XX, XX is equal to the left padding + right padding + 32, this step could be move to the update bounds function;</li>
+</ul>
+</li>
+<li>calculate the total height by systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height+1 (1 is the padding between content view and table cell);</li>
+<li>Can cache tablecell height by using NSDictionary and using indexPath as the key;</li>
+<li>If you use UITextView instead of UILabel, the total height shouble the height calculated by systemLayoutSizeFittingSize + the UITextView height. you can read the reference for more detail.</li>
+</ol>
 
 
-<p>You can learn more detail from <a href="http://toughcoder.net/blog/2014/10/16/blogging-like-a-hacker-with-github-pages/">Here</a>
-and <a href="http://octopress.org/docs/blogging/">Here</a></p>
+<h2>Reference</h2>
+
+<ol>
+<li><a href="http://www.cocoachina.com/industry/20140604/8668.html">http://www.cocoachina.com/industry/20140604/8668.html</a></li>
+</ol>
+
 </div>
 
 
@@ -117,7 +137,7 @@ and <a href="http://octopress.org/docs/blogging/">Here</a></p>
 
 
 
-<time class='entry-date' datetime='2015-05-29T17:52:43+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:52 pm</span></time>
+<time class='entry-date' datetime='2015-06-16T10:49:44+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:49 am</span></time>
       
 
 
@@ -156,8 +176,8 @@ and <a href="http://octopress.org/docs/blogging/">Here</a></p>
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2015/06/11/how-to-edit-git-ignore-file/" title="Previous Post: How to edit gitignore file for Xcode project">&laquo; How to edit gitignore file for Xcode project</a>
       
-        <a class="basic-alignment right" href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/" title="Next Post: MVVM VS MVC VS MVP">MVVM VS MVC VS MVP &raquo;</a>
       
     </p>
   </footer>
