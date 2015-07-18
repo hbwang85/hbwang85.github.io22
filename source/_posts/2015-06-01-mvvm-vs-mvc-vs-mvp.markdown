@@ -44,9 +44,10 @@ Disadvantage：
 
 {% img  center /images/mvc_mvvm/mvvm.png %}
 
-1. ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model。
+1. ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model;
 2. View和ViewModel的通知是双向的，View的变化会直接作用于ViewModel，ViewModel的变化也会直接作用于View；
-3. 一个ViewModel对应一个View。
+3. 一个ViewModel对应一个View;
+4. View包含View和ViewController, MVVM架构下，View应该足够简单，它应该只被用来显示当前UI的状态.
 
 
 ##Summary
