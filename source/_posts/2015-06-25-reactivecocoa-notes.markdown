@@ -53,6 +53,7 @@ RACCommend :
 2. Command can be automatically disabled based on a signal, and this disabled state can be represented in a UI by disabling any controls associated with the command
 
 Cold Signal: Signals are typically lazy, meaning that they only do work and send signals when someone has subscribed to them. With each additional subscription, work is re-done. For trivial operations, this is acceptable, and in fect, desirable. 
+
 Hot Signal : Sometimes we want work to be done immediately. This type of signal is called a hot signal. It's very rare to use a hot signal.
 Signals by default are cold
 
