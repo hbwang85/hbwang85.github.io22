@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>KVC &amp; KVO - Henry Wang's Blog</title>
+  <title>KVC - Henry Wang's Blog</title>
   <meta name="author" content="HaiBin Wang">
 
   
@@ -60,7 +60,7 @@
   
   <header>
     
-      <h1 class="entry-title">KVC &amp; KVO</h1>
+      <h1 class="entry-title">KVC</h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
 
 <h2>KVC Fundament</h2>
 
-<p>Key-Value Coding is a mechanism for accessing an object&rsquo;s properties indirectly, useing strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instnce variable. It is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able.</p>
+<p>Key-Value Coding is a mechanism for accessing an object&rsquo;s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variable. It is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able.</p>
 
 <p>Simply We can get the value by invoking valueForKey:(valueForKeyPath). If there is no accessor or instance variable for the specified key, then the receiver sends itself a valueForUndefinedKey: message, and the default implementation of that message raises an NSUndefinedKeyException.</p>
 
@@ -129,22 +129,14 @@
 
 <p>The obvious advantage is their consicion, but the big disadvantage is that we don’t get compile-time errors when we misuse them and nor do we get code-completion</p>
 
-<p>The Desirables</p>
-
-<p>Firstly, we should be explicit about what types of objects we expect to be in the collection. This should give us code-completion on the key path and an error if the key path doesn’t exist on objects of the pre-specified type.</p>
-
-<p>Secondly, some collection operators demand that the key path leads to a specific type of object. For example, . In these cases, we should get a compile-time error if the key path leads to an object of an invalid type.</p>
-
-<p>Finally, we should only be allowed to use the documented collection operators, and we should get compile-time errors if we try to use an undefined operator.</p>
-
 <p>Collection Operators can be devided to 3 kinds:</p>
 
 <h3>Simple Colletion Operators</h3>
 
-<blockquote><p>@avg
-@max
-@min
-@sum
+<blockquote><p>@avg  <br/>
+@max<br/>
+@min <br/>
+@sum<br/>
 @count</p></blockquote>
 
 <p>Note:<br/>
@@ -166,7 +158,7 @@
 
 <h3>Object Operators</h3>
 
-<blockquote><p>@distinctUnionOfObjects
+<blockquote><p>@distinctUnionOfObjects<br/>
 @unionOfObjects</p></blockquote>
 
 <p>Note:<br/>
@@ -184,8 +176,8 @@
 
 <h3>Array and Set Operators</h3>
 
-<blockquote><p>@unionOfArray
-@distinctUnionOfArrays
+<blockquote><p>@unionOfArray<br/>
+@distinctUnionOfArrays<br/>
 @distinctUnionOfSet</p></blockquote>
 
 <h3>KVC + self = perfect</h3>
@@ -290,7 +282,7 @@ If the wrap lever is more than one, e.g. 2, you can flatten it as below:</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/07/20/kvc-and-kvo/">KVC &amp; KVO</a>
+        <a href="/blog/2015/07/20/kvc-and-kvo/">KVC</a>
       </li>
     
       <li class="post">

@@ -4,7 +4,7 @@
   <title><![CDATA[Henry Wang's Blog]]></title>
   <link href="http://hbwang85.github.io/atom.xml" rel="self"/>
   <link href="http://hbwang85.github.io/"/>
-  <updated>2015-08-04T12:58:57+08:00</updated>
+  <updated>2015-08-04T13:06:56+08:00</updated>
   <id>http://hbwang85.github.io/</id>
   <author>
     <name><![CDATA[HaiBin Wang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[KVC &amp; KVO]]></title>
+    <title type="html"><![CDATA[KVC]]></title>
     <link href="http://hbwang85.github.io/blog/2015/07/20/kvc-and-kvo/"/>
     <updated>2015-07-20T15:10:25+08:00</updated>
     <id>http://hbwang85.github.io/blog/2015/07/20/kvc-and-kvo</id>
@@ -29,7 +29,7 @@
 
 <h2>KVC Fundament</h2>
 
-<p>Key-Value Coding is a mechanism for accessing an object&rsquo;s properties indirectly, useing strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instnce variable. It is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able.</p>
+<p>Key-Value Coding is a mechanism for accessing an object&rsquo;s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variable. It is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able.</p>
 
 <p>Simply We can get the value by invoking valueForKey:(valueForKeyPath). If there is no accessor or instance variable for the specified key, then the receiver sends itself a valueForUndefinedKey: message, and the default implementation of that message raises an NSUndefinedKeyException.</p>
 
@@ -71,22 +71,14 @@
 
 <p>The obvious advantage is their consicion, but the big disadvantage is that we don’t get compile-time errors when we misuse them and nor do we get code-completion</p>
 
-<p>The Desirables</p>
-
-<p>Firstly, we should be explicit about what types of objects we expect to be in the collection. This should give us code-completion on the key path and an error if the key path doesn’t exist on objects of the pre-specified type.</p>
-
-<p>Secondly, some collection operators demand that the key path leads to a specific type of object. For example, . In these cases, we should get a compile-time error if the key path leads to an object of an invalid type.</p>
-
-<p>Finally, we should only be allowed to use the documented collection operators, and we should get compile-time errors if we try to use an undefined operator.</p>
-
 <p>Collection Operators can be devided to 3 kinds:</p>
 
 <h3>Simple Colletion Operators</h3>
 
-<blockquote><p>@avg
-@max
-@min
-@sum
+<blockquote><p>@avg  <br/>
+@max<br/>
+@min <br/>
+@sum<br/>
 @count</p></blockquote>
 
 <p>Note:<br/>
@@ -108,7 +100,7 @@
 
 <h3>Object Operators</h3>
 
-<blockquote><p>@distinctUnionOfObjects
+<blockquote><p>@distinctUnionOfObjects<br/>
 @unionOfObjects</p></blockquote>
 
 <p>Note:<br/>
@@ -126,8 +118,8 @@
 
 <h3>Array and Set Operators</h3>
 
-<blockquote><p>@unionOfArray
-@distinctUnionOfArrays
+<blockquote><p>@unionOfArray<br/>
+@distinctUnionOfArrays<br/>
 @distinctUnionOfSet</p></blockquote>
 
 <h3>KVC + self = perfect</h3>
