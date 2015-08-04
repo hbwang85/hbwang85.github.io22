@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Issues"
+date: 2015-08-04 15:22:33 +0800
+comments: true
+categories: 
+---
+
+
+1. UICollectionView registerClass, 如果UICollectionViewController是code实现，需要用registerCLass，如果是用storyboard实现，则不需要用；
+
+2. dequeueReusableCellWithIdentifier:forIndexPath:相比不带“forIndexPath” 的版本会多调用一次高度计算
