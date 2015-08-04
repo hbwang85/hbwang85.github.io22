@@ -4,7 +4,7 @@
   <title><![CDATA[Henry Wang's Blog]]></title>
   <link href="http://hbwang85.github.io/atom.xml" rel="self"/>
   <link href="http://hbwang85.github.io/"/>
-  <updated>2015-06-25T12:05:59+08:00</updated>
+  <updated>2015-08-04T12:58:57+08:00</updated>
   <id>http://hbwang85.github.io/</id>
   <author>
     <name><![CDATA[HaiBin Wang]]></name>
@@ -12,6 +12,257 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[KVC &amp; KVO]]></title>
+    <link href="http://hbwang85.github.io/blog/2015/07/20/kvc-and-kvo/"/>
+    <updated>2015-07-20T15:10:25+08:00</updated>
+    <id>http://hbwang85.github.io/blog/2015/07/20/kvc-and-kvo</id>
+    <content type="html"><![CDATA[<h2>Background</h2>
+
+<p>KVC is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able. It&rsquo;s really powerful, But few know about the detail. Especially for the collection operators. As part of KVC, collection operators help make many routine tasks simple.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h2>KVC Fundament</h2>
+
+<p>Key-Value Coding is a mechanism for accessing an object&rsquo;s properties indirectly, useing strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instnce variable. It is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able.</p>
+
+<p>Simply We can get the value by invoking valueForKey:(valueForKeyPath). If there is no accessor or instance variable for the specified key, then the receiver sends itself a valueForUndefinedKey: message, and the default implementation of that message raises an NSUndefinedKeyException.</p>
+
+<p>On the other hand, we can set the value of the specified key by invoking setValue: forKey:. If the specified key doesn&rsquo;t exist, the reveiver is sent a setValue:forUndefinedKey: message, and the message will raise an NSUndefinedKeyException.</p>
+
+<p>The essential methods for key-value coding are declared in the NSKeyValueCoding Objective-C informal protocol and default implementations are provided by NSObject.</p>
+
+<p>Key-value coding supports properties with object values, as well as the scalar types and structs. Non-object parameters and return types are detected and automatically wrapped, and unwrapped.</p>
+
+<p>For scalar types, the instances will be wrapped to NSNumber instances，
+<img class="center" src="http://hbwang85.github.io/images/kvc/scalar1.png">
+<img class="center" src="http://hbwang85.github.io/images/kvc/scalar2.png"></p>
+
+<p>For Struct，the instances will be wrapped as NSValue instances. Remember that NSValue and NSNumber both are inheritated from NSObject.<br/>
+<img class="center" src="http://hbwang85.github.io/images/kvc/struct.png"></p>
+
+<p>when you access a property using the dot syntax, you invoke the receiver&rsquo;s standard accessor methods.</p>
+
+<h2>Collection Operators</h2>
+
+<p>Collection operators allow actions to be performed on the items of a collection using key path notation and an action operator. This article describes the available collection operators, example key paths, and the results they’d produce. The format is as below:</p>
+
+<p><img class="center" src="http://hbwang85.github.io/images/kvc/collection_operators_format.png"></p>
+
+<p>Collection operators are specialized key paths that are passed as the parameter to the valueForKeyPath: method. The operator is specified by a string preceded by an at sign (@). The key path on the left side of the collection operator, if present, determines the array or set, relative to the receiver, that is used in the operation. The key path on the right side of the operator specifies the property of the collection that the operator uses. Figure 1 illustrates the operator key path format.</p>
+
+<p>We can use it as below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[object valueForKeyPath:@"&lt;keypathToCollection&gt;.&lt;@collectionOperator&gt;.&lt;keypathToProperty&gt;"];</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the same as :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[[object valueForKeyPath:@"&lt;keypathToCollection&gt;"] valueForKeyPath:@"&lt;@collectionOperators&gt;.&lt;keypathToProperty&gt;"];
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The obvious advantage is their consicion, but the big disadvantage is that we don’t get compile-time errors when we misuse them and nor do we get code-completion</p>
+
+<p>The Desirables</p>
+
+<p>Firstly, we should be explicit about what types of objects we expect to be in the collection. This should give us code-completion on the key path and an error if the key path doesn’t exist on objects of the pre-specified type.</p>
+
+<p>Secondly, some collection operators demand that the key path leads to a specific type of object. For example, . In these cases, we should get a compile-time error if the key path leads to an object of an invalid type.</p>
+
+<p>Finally, we should only be allowed to use the documented collection operators, and we should get compile-time errors if we try to use an undefined operator.</p>
+
+<p>Collection Operators can be devided to 3 kinds:</p>
+
+<h3>Simple Colletion Operators</h3>
+
+<blockquote><p>@avg
+@max
+@min
+@sum
+@count</p></blockquote>
+
+<p>Note:<br/>
+1. If you&rsquo;d like to call @max or @min, the compared property objects must support comparison with each other;<br/>
+2. For the @count, the keypath to the right of the operator is ignored. And the difference between @count and count method are as below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[@[@"a",@"b"] count]
+</span><span class='line'>    // -&gt; 2
+</span><span class='line'>[@[@"a",@"b"] valueForKey:@"@count"]
+</span><span class='line'>    // -&gt; @(2)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Object Operators</h3>
+
+<blockquote><p>@distinctUnionOfObjects
+@unionOfObjects</p></blockquote>
+
+<p>Note:<br/>
+1. @unionOfObjects, is basically useless,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[object valueForKeypath:@"@unionOfObjects.&lt;keypathToProperty&gt;"];  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>is exactly the same as :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[object valueForKey:@"&lt;keypathToProperty&gt;"];</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Array and Set Operators</h3>
+
+<blockquote><p>@unionOfArray
+@distinctUnionOfArrays
+@distinctUnionOfSet</p></blockquote>
+
+<h3>KVC + self = perfect</h3>
+
+<p>You can use self as the <keypathToProperty>. for example, if you&rsquo;d like to flatten a array as below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[@[@[@(1),@(2),@(3)]] valueForKeyPath:@"@unionOfArray.self"];
+</span><span class='line'>       // @[@(1),@(2),@(3)]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+If the wrap lever is more than one, e.g. 2, you can flatten it as below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[@[@[@[@(1),@(2),@(3)]]] valueForKeyPath:@"@unionOfArray.self.@unionOfArray.self"];
+</span><span class='line'>       // @[@(1),@(2),@(3)]
+</span><span class='line'>       // the first "@unionOfArray.self" is used as &lt;keypathToCollection&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Reference</h2>
+
+<ol>
+<li>Key-Value Coding Programming Guide</li>
+<li><a href="http://bou.io/KVCCustomOperators.html">http://bou.io/KVCCustomOperators.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Test Driven Development]]></title>
+    <link href="http://hbwang85.github.io/blog/2015/07/19/test-driven-development/"/>
+    <updated>2015-07-19T07:49:13+08:00</updated>
+    <id>http://hbwang85.github.io/blog/2015/07/19/test-driven-development</id>
+    <content type="html"><![CDATA[<p>可运行的简洁代码是关于“测试驱动开发”（TDD）目标的精辟概括。 TDD带给我们前所未有的好处：
+1. 仅当自动化测试失败的时候才需要编写新的代码；
+2. 可以以TDD为依据进行重构，去掉重复的代码；
+3. 自动化测试可以作为help manual， 代码中不再需要过多的注释。</p>
+
+<p>当然，它也有弊端：
+1. 必须developer自己写测试；
+2. 我们的设计必须遵循高内聚、低耦合的原则，否则不便于测试；
+3. 快速响应，实时的维护自动化测试；</p>
+
+<p>TDD的经典三部曲
+1. 红色指示条：根据需求编写一个测试，当然此时这个测试无法通过编译；
+2. 绿色指示条：编写代码，使测试通过，这个过程可谓想方设法，可谓不择手段；
+3. 重构： 去除单纯由于使测试通过的重复部分。</p>
+
+<p>3A
+编写测试时可以遵循以下3个步骤：
+Build: 创建对象，我们希望每个测试在执行之前都执行此步；
+Operation： 执行测试；
+Check：验证结果。</p>
+
+<p>这样的模式又带来两个问题：
+1. 性能：如果众多测试中使用类似的对象，我们希望对象只被创建一次；
+2. 测试隔离：每个测试的通过与否都不应该与其他测试相关。这样，如果每个对象都只被创建了一次，其中一个测试改变了对象，它必然影响其他测试。
+在xUnit框架中，每个测试在执行前都会调用setup()方法创建对象，执行结束后调用teardown()方法释放对象。</p>
+
+<p>要TDD我们应该怎么做：
+1. 维护一张测试列表，根据需求制定并维护一张测试列表；
+2. 测试优先， 在编写代码前先编写测试；
+3. 显示数据，测试中避免使用magic number；</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ReactiveCocoa Notes]]></title>
+    <link href="http://hbwang85.github.io/blog/2015/06/25/reactivecocoa-notes/"/>
+    <updated>2015-06-25T15:10:35+08:00</updated>
+    <id>http://hbwang85.github.io/blog/2015/06/25/reactivecocoa-notes</id>
+    <content type="html"><![CDATA[<h2>ReactiveCocoa试图解决什么问题</h2>
+
+<p>经过一段时间的研究，我认为ReactiveCocoa试图解决以下3个问题：</p>
+
+<ol>
+<li>传统iOS开发过程中，状态以及状态之间依赖过多的问题</li>
+<li>传统MVC架构的问题：Controller比较复杂，可测试性差</li>
+<li>提供统一的消息传递机制</li>
+</ol>
+
+
+<p>RAC在应用中大量使用了block，由于Objective-C语言的内存管理是基于引用计数的，为了避免循环引用问题，在block中如果要引用self，需要使用@weakify(self)和@strongify(self)来避免强引用。另外，在使用时应该注意block的嵌套层数，不恰当的滥用多层嵌套block可能给程序的可维护性带来灾难</p>
+
+<ol>
+<li>RAC provides signals (represented by RACSignal) that capture present and future values</li>
+<li>By chaining, combining, and reacting to signals, software can be written declaratively, without the need for code that continually observes and updates values.</li>
+<li>It provides a single, unified approach to dealing with asynchronous behaviors, including delegate methods, callback blocks, target-action mechanisms, notifications, and KVO</li>
+</ol>
+
+
+<p>Signals can also represent asynchronous operations, much like futures and promises. This greatly simplifies asynchronous software, including networking code</p>
+
+<p>unlike KVO notifications, signals can be chained together and operated on (pipeline)</p>
+
+<p>Signal Commend</p>
+
+<p>Signal cold  hot:
+cold signal : it will not do any work until subscription</p>
+
+<p>reduceEach: Unpacks each RACTuple in the receiver and maps the values to a new value   n&ndash;>1</p>
+
+<p>Map: takes a list and return it into another list of the same length, &ldquo;mapping&rdquo; each value in the original list into a new value in the resulting list.       1&ndash;>1</p>
+
+<p>Filter: Filtering a list just returns a new list containing all of the original entries, minus the entries that didn&rsquo;t return true from a test.</p>
+
+<p>Fold: combines each entry in a list down to a single value. It&rsquo;s often referred to as &ldquo;combine&rdquo;.</p>
+
+<p>RACScheduler: used to control when and where work is performed</p>
+
+<p>Subscriptions: made on signals. when you want to be notified that a new value is sent(either next, error or completion).</p>
+
+<p>Macros
+RAC(Object, keypath): It performs a one-way binding of the right-hand value of the expression to the key path in question. Values must be NSObjects
+RACObserve(Object, keypath)</p>
+
+<p>RACCommend :
+1. Create and subscribe to a signal in response to some action. Usually the action trigging a command is UI-driven, like when a button is clicked.
+2. Command can be automatically disabled based on a signal, and this disabled state can be represented in a UI by disabling any controls associated with the command</p>
+
+<p>Cold Signal: Signals are typically lazy, meaning that they only do work and send signals when someone has subscribed to them. With each additional subscription, work is re-done. For trivial operations, this is acceptable, and in fect, desirable.</p>
+
+<p>Hot Signal : Sometimes we want work to be done immediately. This type of signal is called a hot signal. It&rsquo;s very rare to use a hot signal.
+Signals by default are cold</p>
+
+<p>Multicasting:
+1. Signal: each new time a subscriber is added, its work is performed.
+2. Multicast connection: subscribe to the signal that it&rsquo;s created with and when it&rsquo;s passed new values, sends those values through to the signal(which is exposed as a public property). You can subscribe to this signal as many as you want, and the work performed upon subscription is only done once.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Storyboard for Tableview]]></title>
@@ -473,9 +724,10 @@ Model通过Observer模式update View。</p>
 <p><img class="center" src="http://hbwang85.github.io/images/mvc_mvvm/mvvm.png"></p>
 
 <ol>
-<li>ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model。</li>
+<li>ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model;</li>
 <li>View和ViewModel的通知是双向的，View的变化会直接作用于ViewModel，ViewModel的变化也会直接作用于View；</li>
-<li>一个ViewModel对应一个View。</li>
+<li>一个ViewModel对应一个View;</li>
+<li>View包含View和ViewController, MVVM架构下，View应该足够简单，它应该只被用来显示当前UI的状态.</li>
 </ol>
 
 

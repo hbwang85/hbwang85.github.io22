@@ -9,7 +9,7 @@
   <meta name="author" content="HaiBin Wang">
 
   
-  <meta name="description" content="Background Our team switch to use storyboard for configuring UI components for currrent project. In the past, I used code to configuring UI &hellip;">
+  <meta name="description" content="Background KVC is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -57,6 +57,185 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/20/kvc-and-kvo/">KVC &amp; KVO</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-20T15:10:25+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Background</h2>
+
+<p>KVC is a fundamental technology when working with key-value observing, Cocoa bindings, Core Data and making your application AppleScript-able. It&rsquo;s really powerful, But few know about the detail. Especially for the collection operators. As part of KVC, collection operators help make many routine tasks simple.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/07/20/kvc-and-kvo/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/19/test-driven-development/">Test Driven Development</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-19T07:49:13+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:49 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>可运行的简洁代码是关于“测试驱动开发”（TDD）目标的精辟概括。 TDD带给我们前所未有的好处：
+1. 仅当自动化测试失败的时候才需要编写新的代码；
+2. 可以以TDD为依据进行重构，去掉重复的代码；
+3. 自动化测试可以作为help manual， 代码中不再需要过多的注释。</p>
+
+<p>当然，它也有弊端：
+1. 必须developer自己写测试；
+2. 我们的设计必须遵循高内聚、低耦合的原则，否则不便于测试；
+3. 快速响应，实时的维护自动化测试；</p>
+
+<p>TDD的经典三部曲
+1. 红色指示条：根据需求编写一个测试，当然此时这个测试无法通过编译；
+2. 绿色指示条：编写代码，使测试通过，这个过程可谓想方设法，可谓不择手段；
+3. 重构： 去除单纯由于使测试通过的重复部分。</p>
+
+<p>3A
+编写测试时可以遵循以下3个步骤：
+Build: 创建对象，我们希望每个测试在执行之前都执行此步；
+Operation： 执行测试；
+Check：验证结果。</p>
+
+<p>这样的模式又带来两个问题：
+1. 性能：如果众多测试中使用类似的对象，我们希望对象只被创建一次；
+2. 测试隔离：每个测试的通过与否都不应该与其他测试相关。这样，如果每个对象都只被创建了一次，其中一个测试改变了对象，它必然影响其他测试。
+在xUnit框架中，每个测试在执行前都会调用setup()方法创建对象，执行结束后调用teardown()方法释放对象。</p>
+
+<p>要TDD我们应该怎么做：
+1. 维护一张测试列表，根据需求制定并维护一张测试列表；
+2. 测试优先， 在编写代码前先编写测试；
+3. 显示数据，测试中避免使用magic number；</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/06/25/reactivecocoa-notes/">ReactiveCocoa Notes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-06-25T15:10:35+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:10 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>ReactiveCocoa试图解决什么问题</h2>
+
+<p>经过一段时间的研究，我认为ReactiveCocoa试图解决以下3个问题：</p>
+
+<ol>
+<li>传统iOS开发过程中，状态以及状态之间依赖过多的问题</li>
+<li>传统MVC架构的问题：Controller比较复杂，可测试性差</li>
+<li>提供统一的消息传递机制</li>
+</ol>
+
+
+<p>RAC在应用中大量使用了block，由于Objective-C语言的内存管理是基于引用计数的，为了避免循环引用问题，在block中如果要引用self，需要使用@weakify(self)和@strongify(self)来避免强引用。另外，在使用时应该注意block的嵌套层数，不恰当的滥用多层嵌套block可能给程序的可维护性带来灾难</p>
+
+<ol>
+<li>RAC provides signals (represented by RACSignal) that capture present and future values</li>
+<li>By chaining, combining, and reacting to signals, software can be written declaratively, without the need for code that continually observes and updates values.</li>
+<li>It provides a single, unified approach to dealing with asynchronous behaviors, including delegate methods, callback blocks, target-action mechanisms, notifications, and KVO</li>
+</ol>
+
+
+<p>Signals can also represent asynchronous operations, much like futures and promises. This greatly simplifies asynchronous software, including networking code</p>
+
+<p>unlike KVO notifications, signals can be chained together and operated on (pipeline)</p>
+
+<p>Signal Commend</p>
+
+<p>Signal cold  hot:
+cold signal : it will not do any work until subscription</p>
+
+<p>reduceEach: Unpacks each RACTuple in the receiver and maps the values to a new value   n&ndash;>1</p>
+
+<p>Map: takes a list and return it into another list of the same length, &ldquo;mapping&rdquo; each value in the original list into a new value in the resulting list.       1&ndash;>1</p>
+
+<p>Filter: Filtering a list just returns a new list containing all of the original entries, minus the entries that didn&rsquo;t return true from a test.</p>
+
+<p>Fold: combines each entry in a list down to a single value. It&rsquo;s often referred to as &ldquo;combine&rdquo;.</p>
+
+<p>RACScheduler: used to control when and where work is performed</p>
+
+<p>Subscriptions: made on signals. when you want to be notified that a new value is sent(either next, error or completion).</p>
+
+<p>Macros
+RAC(Object, keypath): It performs a one-way binding of the right-hand value of the expression to the key path in question. Values must be NSObjects
+RACObserve(Object, keypath)</p>
+
+<p>RACCommend :
+1. Create and subscribe to a signal in response to some action. Usually the action trigging a command is UI-driven, like when a button is clicked.
+2. Command can be automatically disabled based on a signal, and this disabled state can be represented in a UI by disabling any controls associated with the command</p>
+
+<p>Cold Signal: Signals are typically lazy, meaning that they only do work and send signals when someone has subscribed to them. With each additional subscription, work is re-done. For trivial operations, this is acceptable, and in fect, desirable.</p>
+
+<p>Hot Signal : Sometimes we want work to be done immediately. This type of signal is called a hot signal. It&rsquo;s very rare to use a hot signal.
+Signals by default are cold</p>
+
+<p>Multicasting:
+1. Signal: each new time a subscriber is added, its work is performed.
+2. Multicast connection: subscribe to the signal that it&rsquo;s created with and when it&rsquo;s passed new values, sends those values through to the signal(which is exposed as a public property). You can subscribe to this signal as many as you want, and the work performed upon subscription is only done once.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -233,19 +412,23 @@ and <a href="http://octopress.org/docs/blogging/">Here</a></p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/20/kvc-and-kvo/">KVC &amp; KVO</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/19/test-driven-development/">Test Driven Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/25/reactivecocoa-notes/">ReactiveCocoa Notes</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/16/storyboard-for-tableview/">Storyboard for Tableview</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/06/11/how-to-edit-git-ignore-file/">How to Edit Gitignore File for Xcode Project</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">MVVM vs MVC vs MVP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/29/kai-pian-zhi-zuo/">开篇之作</a>
       </li>
     
   </ul>

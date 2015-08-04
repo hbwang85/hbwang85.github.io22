@@ -126,9 +126,10 @@ Model通过Observer模式update View。</p>
 <p><img class="center" src="/images/mvc_mvvm/mvvm.png"></p>
 
 <ol>
-<li>ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model。</li>
+<li>ViewModel不同Model，可以理解为view的model，即包含View的一些属性和操作的Model;</li>
 <li>View和ViewModel的通知是双向的，View的变化会直接作用于ViewModel，ViewModel的变化也会直接作用于View；</li>
-<li>一个ViewModel对应一个View。</li>
+<li>一个ViewModel对应一个View;</li>
+<li>View包含View和ViewController, MVVM架构下，View应该足够简单，它应该只被用来显示当前UI的状态.</li>
 </ol>
 
 
@@ -219,19 +220,23 @@ Model通过Observer模式update View。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/07/20/kvc-and-kvo/">KVC &amp; KVO</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/19/test-driven-development/">Test Driven Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/25/reactivecocoa-notes/">ReactiveCocoa Notes</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/16/storyboard-for-tableview/">Storyboard for Tableview</a>
       </li>
     
       <li class="post">
         <a href="/blog/2015/06/11/how-to-edit-git-ignore-file/">How to Edit Gitignore File for Xcode Project</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">MVVM vs MVC vs MVP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/29/kai-pian-zhi-zuo/">开篇之作</a>
       </li>
     
   </ul>

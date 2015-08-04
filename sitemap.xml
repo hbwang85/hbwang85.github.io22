@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://hbwang85.github.io/blog/2015/07/20/kvc-and-kvo/</loc>
+    <lastmod>2015-07-20T15:10:25+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://hbwang85.github.io/blog/2015/07/19/test-driven-development/</loc>
+    <lastmod>2015-07-19T07:49:13+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://hbwang85.github.io/blog/2015/06/25/reactivecocoa-notes/</loc>
+    <lastmod>2015-06-25T15:10:35+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://hbwang85.github.io/blog/2015/06/16/storyboard-for-tableview/</loc>
     <lastmod>2015-06-16T10:49:44+08:00</lastmod>
   </url>
