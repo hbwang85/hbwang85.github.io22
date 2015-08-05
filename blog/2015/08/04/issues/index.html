@@ -5,15 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Henry Wang's Blog</title>
+  <title>Issues - Henry Wang's Blog</title>
   <meta name="author" content="HaiBin Wang">
 
   
-  <meta name="description" content="Blog Archive 2015 Issues
-Aug 04 2015 KVC
-Jul 20 2015 Test Driven Development
-Jul 19 2015 ReactiveCocoa Notes
-Jun 25 2015 Storyboard for Tableview &hellip;">
+  <meta name="description" content="UICollectionView registerClass, 如果UICollectionViewController是code实现，需要用registerCLass，如果是用storyboard实现，则不需要用；
+dequeueReusableCellWithIdentifier: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +19,7 @@ Jun 25 2015 Storyboard for Tableview &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hbwang85.github.io/blog/archives/">
+  <link rel="canonical" href="http://hbwang85.github.io/blog/2015/08/04/issues/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Henry Wang's Blog" type="application/atom+xml">
@@ -60,101 +57,90 @@ Jun 25 2015 Storyboard for Tableview &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Issues</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-04T15:22:33+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:22 pm</span></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
-
-  
-  <h2>2015</h2>
-
-<article>
-  
-<h1><a href="/blog/2015/08/04/issues/">Issues</a></h1>
-<time datetime="2015-08-04T15:22:33+08:00" pubdate><span class='month'>Aug</span> <span class='day'>04</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/07/20/kvc-and-kvo/">KVC</a></h1>
-<time datetime="2015-07-20T15:10:25+08:00" pubdate><span class='month'>Jul</span> <span class='day'>20</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/07/19/test-driven-development/">Test Driven Development</a></h1>
-<time datetime="2015-07-19T07:49:13+08:00" pubdate><span class='month'>Jul</span> <span class='day'>19</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/06/25/reactivecocoa-notes/">ReactiveCocoa Notes</a></h1>
-<time datetime="2015-06-25T15:10:35+08:00" pubdate><span class='month'>Jun</span> <span class='day'>25</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/06/16/storyboard-for-tableview/">Storyboard for Tableview</a></h1>
-<time datetime="2015-06-16T10:49:44+08:00" pubdate><span class='month'>Jun</span> <span class='day'>16</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/06/11/how-to-edit-git-ignore-file/">How to Edit Gitignore File for Xcode Project</a></h1>
-<time datetime="2015-06-11T10:00:49+08:00" pubdate><span class='month'>Jun</span> <span class='day'>11</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/06/01/mvvm-vs-mvc-vs-mvp/">MVVM vs MVC vs MVP</a></h1>
-<time datetime="2015-06-01T17:58:28+08:00" pubdate><span class='month'>Jun</span> <span class='day'>01</span> <span class='year'>2015</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2015/05/29/kai-pian-zhi-zuo/">开篇之作</a></h1>
-<time datetime="2015-05-29T17:52:43+08:00" pubdate><span class='month'>May</span> <span class='day'>29</span> <span class='year'>2015</span></time>
-
-
-</article>
+<div class="entry-content"><ol>
+<li><p>UICollectionView registerClass, 如果UICollectionViewController是code实现，需要用registerCLass，如果是用storyboard实现，则不需要用；</p></li>
+<li><p>dequeueReusableCellWithIdentifier:forIndexPath:相比不带“forIndexPath” 的版本会多调用一次高度计算</p></li>
+</ol>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">HaiBin Wang</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-08-04T15:22:33+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:22 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+
+  
+  
+  
+  
+  
+    <!--jiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div></div>>
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2036136"></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/07/20/kvc-and-kvo/" title="Previous Post: KVC">&laquo; KVC</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

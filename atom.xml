@@ -4,7 +4,7 @@
   <title><![CDATA[Henry Wang's Blog]]></title>
   <link href="http://hbwang85.github.io/atom.xml" rel="self"/>
   <link href="http://hbwang85.github.io/"/>
-  <updated>2015-08-04T15:19:12+08:00</updated>
+  <updated>2015-08-05T16:17:36+08:00</updated>
   <id>http://hbwang85.github.io/</id>
   <author>
     <name><![CDATA[HaiBin Wang]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Issues]]></title>
+    <link href="http://hbwang85.github.io/blog/2015/08/04/issues/"/>
+    <updated>2015-08-04T15:22:33+08:00</updated>
+    <id>http://hbwang85.github.io/blog/2015/08/04/issues</id>
+    <content type="html"><![CDATA[<ol>
+<li><p>UICollectionView registerClass, 如果UICollectionViewController是code实现，需要用registerCLass，如果是用storyboard实现，则不需要用；</p></li>
+<li><p>dequeueReusableCellWithIdentifier:forIndexPath:相比不带“forIndexPath” 的版本会多调用一次高度计算</p></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[KVC]]></title>
@@ -118,9 +131,9 @@
 
 <h3>Array and Set Operators</h3>
 
-<blockquote><p>@unionOfArray<br/>
+<blockquote><p>@unionOfArrays<br/>
 @distinctUnionOfArrays<br/>
-@distinctUnionOfSet</p></blockquote>
+@distinctUnionOfSets</p></blockquote>
 
 <h3>KVC + self = perfect</h3>
 
