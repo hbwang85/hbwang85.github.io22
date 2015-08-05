@@ -89,9 +89,9 @@ is exactly the same as :
 ```
 
 ###Array and Set Operators
-> @unionOfArray  
+> @unionOfArrays  
 > @distinctUnionOfArrays  
-> @distinctUnionOfSet
+> @distinctUnionOfSets
 
 ###KVC + self = perfect  
 You can use self as the <keypathToProperty>. for example, if you'd like to flatten a array as below:
